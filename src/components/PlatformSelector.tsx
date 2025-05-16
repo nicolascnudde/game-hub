@@ -1,27 +1,32 @@
-import usePlatforms from "@/hooks/usePlatforms";
-import { Button, Menu, Spinner } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
+import { Button, Menu, Spinner } from "@chakra-ui/react";
 
-const PlatformSelector = () => {
+import { Platform } from "@/hooks/useGames";
+import usePlatforms from "@/hooks/usePlatforms";
+
+interface Props {
+	selectedPlatform: Platform | null;
+	onSelectPlatform: (platform: Platform) => void;
+}
+
+const PlatformSelector = ({ selectedPlatform, onSelectPlatform }: Props) => {
 	const { data: platforms, isLoading, error } = usePlatforms();
 
 	if (error) return null;
-
-	if (isLoading) return <Spinner />;
 
 	return (
 		<Menu.Root>
 			<Menu.Trigger asChild>
 				<Button variant="outline">
-					Platforms
-					<BsChevronDown />
+					{selectedPlatform?.name || "Platforms"}
+					{isLoading ? <Spinner size="sm" /> : <BsChevronDown />}
 				</Button>
 			</Menu.Trigger>
 
 			<Menu.Positioner>
 				<Menu.Content>
 					{platforms.map((platform) => (
-						<Menu.Item key={platform.id} value={platform.slug}>
+						<Menu.Item key={platform.id} value={platform.slug} onClick={() => onSelectPlatform(platform)}>
 							{platform.name}
 						</Menu.Item>
 					))}
