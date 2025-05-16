@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Grid, GridItem, HStack } from "@chakra-ui/react";
+import { Flex, Grid, GridItem } from "@chakra-ui/react";
 
 import { Genre } from "./hooks/useGenres";
 import { Platform } from "./hooks/useGames";
@@ -36,7 +36,7 @@ const App = () => {
 				<GenreList selectedGenre={gameQuery.genre} onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })} />
 			</GridItem>
 			<GridItem area="main">
-				<HStack gap={4} paddingInlineStart={4} marginBlockEnd={5}>
+				<Flex gap={4} paddingInlineStart={4} marginBlockEnd={5}>
 					<PlatformSelector
 						selectedPlatform={gameQuery.platform}
 						onSelectPlatform={(platform) => setGameQuery({ ...gameQuery, platform })}
@@ -45,7 +45,7 @@ const App = () => {
 						sortOrder={gameQuery.sortOrder}
 						onSelectSortOrder={(sortOrder) => setGameQuery({ ...gameQuery, sortOrder })}
 					/>
-				</HStack>
+				</Flex>
 				<GameGrid gameQuery={gameQuery} />
 			</GridItem>
 		</Grid>
